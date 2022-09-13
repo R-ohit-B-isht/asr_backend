@@ -7,18 +7,19 @@ from multiprocessing import Pool, cpu_count
 import psutil
 import resource
 import sys
-
+dirs=sys.argv[1]
 #load pre-trained model and tokenizer
 processor = Wav2Vec2Processor.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
 model = Wav2Vec2ForCTC.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
 
-dir_list = os.listdir("./")
+dir_list = os.listdir(dirs+"/audio/mp3/waves/")
 #print(dir_list)
-file_name = "text.txt"
-wfile = open(file_name, 'w+', encoding='utf-8')
+file_name = dirs+"/text.txt"
+wfile = open(file_name, 'w', encoding='utf-8')
 ts=[]
 count = 0
-for x in dir_list:
+for y in dir_list:
+    x=dirs+"/audio/mp3/waves/"+y
     if x.endswith(".wav"):
         count += 1
     else:

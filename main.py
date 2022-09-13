@@ -12,58 +12,76 @@ def home():
     if request.method=="POST":
         file = request.files['file']
         filename = secure_filename(file.filename)
-
+        filename_without_ext=os.path.splitext(filename)[0]
+        # remover="rm ./*.wav"
+        # os.system(remover)
+        # remover="rm -rf ./uploads/"
+        # os.system(remover)
         # check and create upload folder
         isExist = os.path.exists("./uploads")
         if(isExist==False):
             os.makedirs("./uploads")
+            
+        folder_for_each_video="./uploads/"+filename_without_ext
+        folder_for_each_video = folder_for_each_video.replace(' ','')
+        folder_for_each_video = folder_for_each_video.replace('_','')
+        isExist = os.path.exists(folder_for_each_video)
+        if(isExist==False):
+            os.makedirs(folder_for_each_video)
         
-        file.save(os.path.join("./uploads", filename))
+        file.save(os.path.join(folder_for_each_video+"/", filename))
 
-        filename_without_ext=os.path.splitext(filename)[0]
-        isExist = os.path.exists("./uploads/audio")
-        if(isExist):
-            shutil.rmtree("./uploads/audio")
         
-        os.makedirs("./uploads/audio")
+        isExist = os.path.exists(folder_for_each_video+"/audio")
+        # if(isExist):
+        #     shutil.rmtree(folder_for_each_video+"/audio")
+        
+        os.makedirs(folder_for_each_video+"/audio")
 
-        generated_audiofile="./uploads/audio/"+filename_without_ext+".mp3"
-        convert_to_audio=" ffmpeg -i ./uploads/" +filename+" -vn -acodec libmp3lame -ac 1 -ab 160k -ar 16000 "+generated_audiofile
+        generated_audiofile=folder_for_each_video+"/audio/"+filename_without_ext+".mp3"
+        convert_to_audio=" ffmpeg -i "+ folder_for_each_video+"/"+filename+" -vn -acodec libmp3lame -ac 1 -ab 160k -ar 16000 "+generated_audiofile
         os.system(convert_to_audio)
 
-        os.makedirs("./uploads/audio/mp3")
+        os.makedirs(folder_for_each_video+"/audio/"+"mp3")
 
-        audio_split="mp3splt -s -p th=-40,min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+"./uploads/audio/mp3"
+        audio_split="mp3splt -s -p th=-35,min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
         os.system(audio_split)
-        audio_split_text="mp3splt -s -P -p th=-40,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+"./uploads/audio/time_o.txt"
+        audio_split_text="mp3splt -s -P -p th=-35,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
         os.system(audio_split_text)
-        os.makedirs("./uploads/audio/mp3/waves")
+        os.makedirs(folder_for_each_video+"/audio/mp3/waves")
         
-        for files in os.listdir("./uploads/audio/mp3/"):
+        for files in os.listdir(folder_for_each_video+"/audio/mp3/"):
             if files.endswith(".mp3"):
                 filenames_without_ext=os.path.splitext(files)[0]
-                wav_convert="sox "+"./uploads/audio/mp3/"+files+" ./uploads/audio/mp3/waves/"+filenames_without_ext+".wav"
+                wav_convert="sox "+folder_for_each_video+"/audio/mp3/"+files+" "+folder_for_each_video+"/audio/mp3/waves/"+filenames_without_ext+".wav"
                 os.system(wav_convert)
             else:
                 continue
-        for files in os.listdir("./uploads/audio/mp3/waves/"):
-            if files.endswith(".wav"):
-                copying="cp "+"./uploads/audio/mp3/waves/"+files+" ./"
-                os.system(copying)
-            else:
-                continue
-        model_script="python3 check.py"
+            
+        # for files in os.listdir(folder_for_each_video+"/audio/mp3/waves/"):
+        #     if files.endswith(".wav"):
+        #         copying="cp "+"./uploads/audio/mp3/waves/"+files+" ./"
+        #         os.system(copying)
+        #     else:
+        #         continue
+        
+        model_script="python3 check.py "+folder_for_each_video
         os.system(model_script)
-        xml_script="python3 xml_create.py"
+        xml_script="python3 xml_create.py "+folder_for_each_video
         os.system(xml_script)
-        remover="rm ./*.wav"
+        # remover="rm ./*.wav"
+        # os.system(remover)
+        
+        with open(folder_for_each_video+"/transcript.xml", 'r') as fr:
+        # reading line by line
+            lines = fr.readlines()
+        remover="rm -rf "+folder_for_each_video
         os.system(remover)
-        remover="rm -rf ./uploads/"
-        os.system(remover)
-        return send_from_directory("./", "G_2.xml", as_attachment=True)
+        return lines
+        # return send_from_directory("./", "G_2.xml", as_attachment=True)
     else:
         return "get"
     
     
 if __name__ == "__main__":
-    app.run(debug=True,host='127.0.0.1', port=5051)
+    app.run(debug=True,threaded=True)
