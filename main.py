@@ -69,8 +69,7 @@ def home():
         os.system(model_script)
         xml_script="python3 xml_create.py "+folder_for_each_video
         os.system(xml_script)
-        # remover="rm ./*.wav"
-        # os.system(remover)
+       
         
         with open(folder_for_each_video+"/transcript.xml", 'r') as fr:
         # reading line by line
