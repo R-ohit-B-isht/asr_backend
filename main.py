@@ -78,7 +78,7 @@ def home():
         remover="rm -rf "+folder_for_each_video
         os.system(remover)
         return lines
-        # return send_from_directory("./", "G_2.xml", as_attachment=True)
+        
     else:
         return "get"
     
