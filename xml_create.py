@@ -40,7 +40,7 @@ with open(file_name, 'r', encoding='utf-8',  errors='ignore') as f:
 print(len(sentence_list))
 
 file_name = dirs+"/transcript.xml"
-wfile = open(file_name, 'w+', encoding='utf-8')
+wfile = open("./trs.xml", 'w+', encoding='utf-8')
 i = 0
 
 wfile.write('<?xml version="1.0" encoding="UTF-8"?>'+"\n")
@@ -48,7 +48,7 @@ wfile.write('<transcript lang="english">'+"\n")
 for j in range(len(sentence_list)):
 	sentence = sentence_list[j]
 	time = time_list[j]
-	wfile.write("<line timestamp=\""+str(time)+"\" is_valid=\"1\">"+"\n")
+	wfile.write("<line timestamp=\""+str(time)+"\" speaker=\"Speaker_1\">"+"\n")
 	word = sentence.split(" ")
 	for k in range(len(word)):
 		wfile.write("<word timestamp=\"\" is_valid=\"1\">"+str(word[k])+"</word>"+"\n")

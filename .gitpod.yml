@@ -3,8 +3,11 @@
 # and commit this file to your remote git repository to share the goodness with others.
 
 tasks:
-  - command: sudo apt install ffmpeg -y
-  - command: sudo apt install mp3splt -y
-  - command: sudo apt install sox -y
-  - command: sudo apt install libsox-fmt-mp3 -y
+  - command: sudo apt install ffmpeg mp3splt sox libsox-fmt-mp3 -y
+  - command: pip install flask
+  - command: pip install librosa
+  - command: pip install pytorch
+  - command: pip install torchvision
+  - command: pip install transformers
+  - command: rm -rf ./uploads
   - command: python main.py
