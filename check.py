@@ -12,7 +12,7 @@ dirs=sys.argv[1]
 #load pre-trained model and tokenizer
 # processor = Wav2Vec2Processor.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
 # model = Wav2Vec2ForCTC.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
-model = whisper.load_model("base")
+model = whisper.load_model("base.en")
 dir_list = os.listdir(dirs+"/audio/mp3/waves/")
 #print(dir_list)
 file_name = dirs+"/text.txt"
