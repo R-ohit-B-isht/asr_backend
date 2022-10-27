@@ -30,7 +30,7 @@ for y in dir_list:
     # wfile.write(x+"\t"+y+"\n")
     ts.append(x+"\t"+y["text"]+"\n")
     # print(psutil.Process().memory_info().rss / (1024 * 1024))
-    # print(y["text"])
+    print(y["text"])
 print(count)
 
 ts.sort()
