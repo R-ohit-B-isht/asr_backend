@@ -12,16 +12,12 @@ simple_app = Celery('simple_worker', broker='redis://localhost:6379/0', backend=
 @app.route('/transcript',methods=["POST","GET"])
 def call_method():
     app.logger.info("Invoking Method ")
-    #                        queue name in task folder.function name
+
     if request.method=="POST":
         file = request.files['file']
         filename = secure_filename(file.filename)
         filename_without_ext=os.path.splitext(filename)[0]
-        # remover="rm ./*.wav"
-        # os.system(remover)
-        # remover="rm -rf ./uploads/"
-        # os.system(remover)
-        # check and create upload folder
+        
         isExist = os.path.exists("./uploads")
         if(isExist==False):
             os.makedirs("./uploads")

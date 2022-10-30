@@ -9,6 +9,7 @@ tasks:
   - command: pip install pytorch
   - command: pip install torchvision
   - command: pip install transformers
+  - command: pip install celery[redis]
   - command: rm -rf ./uploads
   - command: python main.py
     # start server commands

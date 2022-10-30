@@ -40,7 +40,7 @@ with open(file_name, 'r', encoding='utf-8',  errors='ignore') as f:
 print(len(sentence_list))
 
 file_name = dirs+"/transcript.xml"
-wfile = open("./trs.xml", 'w+', encoding='utf-8')
+wfile = open(file_name, 'w+', encoding='utf-8')
 i = 0
 
 wfile.write('<?xml version="1.0" encoding="UTF-8"?>'+"\n")

@@ -15,8 +15,7 @@ app = Celery('tasks', broker='redis://localhost:6379/0', backend='redis://localh
 @app.task()
 def longtime_add(folder_for_each_video,filename_without_ext,filename):
     isExist = os.path.exists(folder_for_each_video+"/audio")
-    # if(isExist):
-    #     shutil.rmtree(folder_for_each_video+"/audio")
+
 
     os.makedirs(folder_for_each_video+"/audio")
 
@@ -39,13 +38,7 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
             os.system(wav_convert)
         else:
             continue
-        
-    # for files in os.listdir(folder_for_each_video+"/audio/mp3/waves/"):
-    #     if files.endswith(".wav"):
-    #         copying="cp "+"./uploads/audio/mp3/waves/"+files+" ./"
-    #         os.system(copying)
-    #     else:
-    #         continue
+
 
     model_script="python3 check.py "+folder_for_each_video
     os.system(model_script)
@@ -53,12 +46,11 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
     os.system(xml_script)
 
 
-    # with open("./trs.xml", 'r') as fr:
-    # # reading line by line
-    #     lines = fr.readlines()
+    
+    st=""
+    with open(folder_for_each_video+"/transcript.xml",'r')as sendt:
+        st=sendt.read()
     remover="rm -rf "+folder_for_each_video
     os.system(remover)
-    st=""
-    with open("./trs.xml",'r')as sendt:
-        st=sendt.read()
+    
     return st
