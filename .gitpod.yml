@@ -6,7 +6,7 @@ tasks:
   - command: sudo apt install ffmpeg mp3splt sox libsox-fmt-mp3 redis -y
   - command: pip install flask
   - command: pip install librosa
-  - command: pip install pytorch
+  - command: pip install torch
   - command: pip install torchvision
   - command: pip install transformers
   - command: pip install celery[redis]
