@@ -6,7 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 import shutil
 import subprocess
-
+import re
 logger = get_task_logger(__name__)
 
 app = Celery('tasks', broker='redis://localhost:6379/0', backend='redis://localhost:6379/0')
@@ -25,10 +25,28 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
 
     os.makedirs(folder_for_each_video+"/audio/"+"mp3")
 
-    audio_split="mp3splt -s -p th=-25,min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
-    os.system(audio_split)
-    audio_split_text="mp3splt -s -P -p th=-25,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
+    audio_split_text="mp3splt -s -P -p th=-10,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
     os.system(audio_split_text)
+    
+    with open(folder_for_each_video+"/audio/time_o.txt",'r')as slice:
+        lines=slice.readlines()
+        ts=lines[-1]
+
+    lvl=re.findall("\d+\.\d+", ts)
+    print("\n\n\n\n\n\n\nsilence lvl is : "+lvl[0])
+    print("\n\n\n\n\n\n\n")
+    
+    if lvl[0]!=10:
+        audio_split="mp3splt -s -p th=-"+lvl[0]+",min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
+        os.system(audio_split)
+        audio_split_text="mp3splt -s -P -p th=-"+lvl[0]+",min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
+        os.system(audio_split_text)
+    else:
+        audio_split="mp3splt -s -p th=-10"+",min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
+        os.system(audio_split)
+        audio_split_text="mp3splt -s -P -p th=-10"+",min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
+        os.system(audio_split_text)
+    
     os.makedirs(folder_for_each_video+"/audio/mp3/waves")
 
     for files in os.listdir(folder_for_each_video+"/audio/mp3/"):

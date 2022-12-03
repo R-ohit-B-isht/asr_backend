@@ -10,8 +10,9 @@ tasks:
   - command: pip install torchvision
   - command: pip install transformers
   - command: pip install celery[redis]
+  - command: pip install whisper
   - command: rm -rf ./uploads
-  - command: python main.py
+
     # start server commands
   - command: redis-server  
   - command: celery -A tasks worker --loglevel=info
