@@ -7,11 +7,12 @@ from multiprocessing import Pool, cpu_count
 import psutil
 import resource
 import sys
+import whisper
 dirs=sys.argv[1]
 #load pre-trained model and tokenizer
-processor = Wav2Vec2Processor.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
-model = Wav2Vec2ForCTC.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
-
+# processor = Wav2Vec2Processor.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
+# model = Wav2Vec2ForCTC.from_pretrained("Harveenchadha/vakyansh-wav2vec2-indian-english-enm-700")
+model = whisper.load_model("large.en")
 dir_list = os.listdir(dirs+"/audio/mp3/waves/")
 #print(dir_list)
 file_name = dirs+"/text.txt"
@@ -24,19 +25,12 @@ for y in dir_list:
         count += 1
     else:
         continue
-    speech, rate = librosa.load(x,sr=16000)
-    input_values = processor(speech, return_tensors = 'pt').input_values
-    #Store logits (non-normalized predictions)
-    logits = model(input_values).logits
-    #Store predicted id's
-    predicted_ids = torch.argmax(logits, dim =-1)
-    #decode the audio to generate text
-    transcriptions = processor.decode(predicted_ids[0])
-    y = transcriptions.replace('<s>','')
+    
+    y = model.transcribe(x, language='en', fp16=False)
     # wfile.write(x+"\t"+y+"\n")
-    ts.append(x+"\t"+y+"\n")
-    print(psutil.Process().memory_info().rss / (1024 * 1024))
-    print(y)
+    ts.append(x+"\t"+y["text"]+"\n")
+    # print(psutil.Process().memory_info().rss / (1024 * 1024))
+    print(y["text"])
 print(count)
 
 ts.sort()

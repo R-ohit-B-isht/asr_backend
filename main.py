@@ -3,9 +3,10 @@ import os
 from werkzeug.utils import secure_filename
 import shutil
 import subprocess
+from celery import Celery
 
 app = Flask(__name__)
-
+# simple_app = Celery('simple_worker', broker='redis://redis:6379/0', backend='redis://redis:6379/0')
 
 @app.route("/",methods=["POST","GET"])
 def home():
