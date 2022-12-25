@@ -45,9 +45,9 @@ def home():
 
         os.makedirs(folder_for_each_video+"/audio/"+"mp3")
 
-        audio_split="mp3splt -s -p th=-25,min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
+        audio_split="mp3splt -s -p th=-35,min=0.4,rm=50_50,trackjoin=2.5 "+generated_audiofile+" -o @f-@n -d "+folder_for_each_video+"/audio/"+"mp3"
         os.system(audio_split)
-        audio_split_text="mp3splt -s -P -p th=-25,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
+        audio_split_text="mp3splt -s -P -p th=-35,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
         os.system(audio_split_text)
         os.makedirs(folder_for_each_video+"/audio/mp3/waves")
         

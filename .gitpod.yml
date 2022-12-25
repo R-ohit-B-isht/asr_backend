@@ -4,13 +4,14 @@
 
 tasks:
   - command: sudo apt install ffmpeg mp3splt sox libsox-fmt-mp3 redis -y
-  - command: pip install flask
+  - command: pip install flask librosa torch torchvision transformers celery[redis] whisper
   - command: pip install librosa
   - command: pip install torch
   - command: pip install torchvision
   - command: pip install transformers
   - command: pip install celery[redis]
   - command: pip install whisper
+  - command: pip install git+https://github.com/openai/whisper.git
   - command: rm -rf ./uploads
 
     # start server commands
