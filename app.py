@@ -55,10 +55,12 @@ def task_result(task_id):
 
 
 @app.route('/translation',methods=["POST","GET"])
-def call_method():
+def call_method2():
     app.logger.info("Invoking Method ")
 
     if request.method=="POST":
+        source_lang=request.headers.get('source_language', 'english')
+        destination_lang=request.headers.get('destination_language', 'english')
         file = request.files['file']
         filename = secure_filename(file.filename)
         filename_without_ext=os.path.splitext(filename)[0]
@@ -75,7 +77,7 @@ def call_method():
             os.makedirs(folder_for_each_video)
         
         file.save(os.path.join(folder_for_each_video+"/", filename))
-        r = simple_app.send_task('tasks.getTranslation', kwargs={'folder_for_each_video':folder_for_each_video,'filename':filename})
+        r = simple_app.send_task('tasks.getTranslation', kwargs={'folder_for_each_video':folder_for_each_video,'filename':filename,'source_lang':source_lang,'destination_lang':destination_lang})
         app.logger.info(r.backend)
         return r.id
     else:
@@ -83,14 +85,14 @@ def call_method():
 
 
 @app.route('/translation/<task_id>')
-def get_status(task_id):
+def get_status2(task_id):
     status = simple_app.AsyncResult(task_id, app=simple_app)
     print("Invoking Method ")
     return str(status.state)
 
 
 @app.route('/translation/<task_id>/result')
-def task_result(task_id):
+def task_result2(task_id):
     result = simple_app.AsyncResult(task_id).result
     return  str(result)
 

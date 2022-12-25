@@ -7,6 +7,8 @@ from werkzeug.utils import secure_filename
 import shutil
 import subprocess
 import re
+import requests
+import sys          
 import xml.etree.ElementTree as ET
 
 logger = get_task_logger(__name__)
@@ -81,9 +83,7 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
 
 def parseXML(xmlfile):
     tree = ET.parse(xmlfile)
-    print(tree)
     root = tree.getroot()
-    print(root)
     lines = []
     for item in root.findall('line'):
         words=[]
@@ -101,8 +101,9 @@ def compareXMLforTimeStamps(xmlfile,tXML):
     cn2=0
     fu=""
     with open (xmlfile,"r",encoding='utf-8') as re:
+        with open (tXML,"r",encoding='utf-8') as wr:
             re1 = re.readline()
-            wr1 = tXML.readline()
+            wr1 = wr.readline()
             while re1 !="":
                 if "line timestamp" in re1:
                     cn1+=1
@@ -114,17 +115,36 @@ def compareXMLforTimeStamps(xmlfile,tXML):
                     cn2+=1
                     wr1=count[cn2-1]
                 fu+=wr1
-                wr1 = tXML.readline()
+                wr1 = wr.readline()
     return fu
 
-def getTranslation(folder_for_each_video,filename):
+@app.task()
+def getTranslation(folder_for_each_video,filename,source_lang,destination_lang):
+    print(source_lang)
+    print(destination_lang)
+    sr='en'
+    dt='hi'
+    
+    ##source lang
+    if source_lang=="hindi":
+        sr='hi'
+    elif source_lang=='english':
+        sr='en'
+     
+    ##destination lang   
+    if destination_lang=="hindi":
+        dt='hi'
+    elif destination_lang=='english':
+        dt='en'
+        
+        
     final_translation=[]
     for line in parseXML(folder_for_each_video+"/"+filename):
         payload = {"sentence": line}
-        req = requests.post('https://udaaniitb2.aicte-india.org:8000/udaan_project_layout/translate/en/hi'.format("math,phy", "1"), data = payload, verify=False)
+        req = requests.post('https://udaaniitb2.aicte-india.org:8000/udaan_project_layout/translate/'+sr+'/'+dt.format("math,phy", "1"), data = payload, verify=False)
         final_translation.append(req.json()['translation'])
         
-    tXML='<?xml version="1.0" encoding="UTF-8"?>\n'+'<transcript lang="hindi">\n'
+    tXML='<?xml version="1.0" encoding="UTF-8"?>\n'+'<transcript lang="'+destination_lang+'">\n'
 
     for line in final_translation:
         tXML+='<line timestamp="" speaker="Speaker_1">\n'
@@ -134,7 +154,9 @@ def getTranslation(folder_for_each_video,filename):
             tXML+=('</word>\n')
         tXML+=('</line>\n')
     tXML+=('</transcript>\n')
-    tXML=compareXMLforTimeStamps(folder_for_each_video+"/"+filename,tXML)
+    with open(folder_for_each_video+"/"+destination_lang+'.xml','w',encoding='utf-8')as tr:
+        tr.write(tXML)
+    tXML=compareXMLforTimeStamps(folder_for_each_video+"/"+filename,folder_for_each_video+"/"+destination_lang+'.xml')
     remover="rm -rf "+folder_for_each_video
     os.system(remover)
     return tXML
