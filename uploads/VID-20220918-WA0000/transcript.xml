@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transcript lang="english">
-<line timestamp="00:20.95" speaker="Speaker_1">
+<line timestamp="00:20.95" speaker="Speaker_0">
 <word timestamp="" is_valid="1">Okay,</word>
 <word timestamp="" is_valid="1">now</word>
 <word timestamp="" is_valid="1">that</word>
@@ -57,7 +57,7 @@
 <word timestamp="" is_valid="1">to</word>
 <word timestamp="" is_valid="1">X.</word>
 </line>
-<line timestamp="00:32.15" speaker="Speaker_1">
+<line timestamp="00:32.15" speaker="Speaker_0">
 <word timestamp="" is_valid="1">That</word>
 <word timestamp="" is_valid="1">is</word>
 <word timestamp="" is_valid="1">the</word>
@@ -204,7 +204,7 @@
 <word timestamp="" is_valid="1">matrix</word>
 <word timestamp="" is_valid="1">represents</word>
 </line>
-<line timestamp="01:29.44" speaker="Speaker_1">
+<line timestamp="01:29.44" speaker="Speaker_0">
 <word timestamp="" is_valid="1">this</word>
 <word timestamp="" is_valid="1">is</word>
 <word timestamp="" is_valid="1">actually</word>
@@ -218,7 +218,7 @@
 <word timestamp="" is_valid="1">this</word>
 <word timestamp="" is_valid="1">anything</word>
 </line>
-<line timestamp="01:33.73" speaker="Speaker_1">
+<line timestamp="01:33.73" speaker="Speaker_0">
 <word timestamp="" is_valid="1">This</word>
 <word timestamp="" is_valid="1">is</word>
 <word timestamp="" is_valid="1">nothing</word>
@@ -282,7 +282,7 @@
 <word timestamp="" is_valid="1">into</word>
 <word timestamp="" is_valid="1">X.</word>
 </line>
-<line timestamp="02:04.55" speaker="Speaker_1">
+<line timestamp="02:04.55" speaker="Speaker_0">
 <word timestamp="" is_valid="1">right</word>
 <word timestamp="" is_valid="1">and</word>
 <word timestamp="" is_valid="1">if</word>
@@ -311,7 +311,7 @@
 <word timestamp="" is_valid="1">hold</word>
 <word timestamp="" is_valid="1">right.</word>
 </line>
-<line timestamp="02:08.69" speaker="Speaker_1">
+<line timestamp="02:08.69" speaker="Speaker_0">
 <word timestamp="" is_valid="1">Yeah,</word>
 <word timestamp="" is_valid="1">so</word>
 <word timestamp="" is_valid="1">far</word>
@@ -320,7 +320,7 @@
 <word timestamp="" is_valid="1">talked</word>
 <word timestamp="" is_valid="1">about.</word>
 </line>
-<line timestamp="02:18.03" speaker="Speaker_1">
+<line timestamp="02:18.03" speaker="Speaker_0">
 <word timestamp="" is_valid="1">The</word>
 <word timestamp="" is_valid="1">case</word>
 <word timestamp="" is_valid="1">is</word>

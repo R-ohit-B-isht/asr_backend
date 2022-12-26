@@ -26,7 +26,9 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
     generated_audiofile=folder_for_each_video+"/audio/"+filename_without_ext+".mp3"
     convert_to_audio=" ffmpeg -i "+ folder_for_each_video+"/"+filename+" -vn -acodec libmp3lame -ac 1 -ab 160k -ar 16000 "+generated_audiofile
     os.system(convert_to_audio)
-
+    full_wav="sox " + generated_audiofile +" "+folder_for_each_video+"/audio/"+filename_without_ext+".wav"
+    os.system(full_wav)
+    
     os.makedirs(folder_for_each_video+"/audio/"+"mp3")
 
     audio_split_text="mp3splt -s -P -p th=-10,min=0.4,rm=50_50,trackjoin=2.5 -o _@m:@s.@h_@M:@S.@H "+generated_audiofile+" > "+folder_for_each_video+"/audio/time_o.txt"
