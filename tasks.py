@@ -73,7 +73,7 @@ def longtime_add(folder_for_each_video,filename_without_ext,filename):
     with open(folder_for_each_video+"/transcript.xml",'r')as sendt:
         st=sendt.read()
     remover="rm -rf "+folder_for_each_video
-    os.system(remover)
+    # os.system(remover)
     
     return st
 

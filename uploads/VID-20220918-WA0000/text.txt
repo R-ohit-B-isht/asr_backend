@@ -1,0 +1,15 @@
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-01.wav	 Okay, now that you have seen how matrix multiplication with a vector can be seen as a transformation what I want to tell you is let us say you had a vector x and upon transformation this vector got transformed to another vector b.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-02.wav	 and you want to bring it back to X.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-03.wav	 That is the case when you are what you are doing when you essentially trying to solve a x equal to b.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-04.wav	 Right, you have the value for B and you have this transformation that you applied to X to get to B and now what you want is you want the original value of X. So basically now you want another transformation that can take B as input and get you back to X.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-05.wav	 So, this transformation is basically called A inverse, right?
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-06.wav	 and like the original transformation if you multiply the given vector b with this transformation it will definitely get you back to x.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-07.wav	 Now, what do you think and as Ritesh has already motivated,
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-08.wav	 sequential multiplication of matrices as subsequent transformations what do you think that
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-09.wav	 This matrix represents
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-10.wav	 this is actually nothing but applying it or this or this anything
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-11.wav	 This is nothing but applying a transformation on the vector x.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-12.wav	 and then applying another transformation on the transform vector and we just saw that if you apply this transformation to X you'll go to B and then you apply the inverse transformation it will again come back to X that essentially means this entire multiplication will result into X.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-13.wav	 right and if you look at this equation you can easily deduce that A inverse A should be an identity matrix for this equation to hold right.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-14.wav	 Yeah, so far we have talked about.
+./uploads/VID-20220918-WA0000/audio/mp3/waves/VID-20220918-WA0000-15.wav	 The case is where you can actually find out this inverse matrices and which is mostly in the case of square matrices that you are able to find out this inverse.

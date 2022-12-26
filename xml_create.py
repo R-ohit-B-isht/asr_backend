@@ -1,4 +1,3 @@
-#file_name = "malhar_time.txt"
 import sys
 dirs=sys.argv[1]
 with open(dirs+'/audio/time_o.txt', 'r') as fr:
@@ -29,7 +28,7 @@ with open(file_name, 'r', encoding='utf-8',  errors='ignore') as f:
         time = line.split("\n")[0].split("_")[2]
         # time = time.replace('created" ','')
         time_list.append(time)
-print(len(time_list))
+# print(len(time_list))
 
 file_name = dirs+"/text.txt"
 sentence_list = []
@@ -37,7 +36,7 @@ with open(file_name, 'r', encoding='utf-8',  errors='ignore') as f:
     for line in f:
         word = line.split("\t")[1].split("\n")[0]
         sentence_list.append(word)
-print(len(sentence_list))
+# print(len(sentence_list))
 
 file_name = dirs+"/transcript.xml"
 wfile = open(file_name, 'w+', encoding='utf-8')
@@ -46,11 +45,11 @@ i = 0
 wfile.write('<?xml version="1.0" encoding="UTF-8"?>'+"\n")
 wfile.write('<transcript lang="english">'+"\n")
 for j in range(len(sentence_list)):
-	sentence = sentence_list[j]
-	time = time_list[j]
-	wfile.write("<line timestamp=\""+str(time)+"\" speaker=\"Speaker_1\">"+"\n")
-	word = sentence.split(" ")
-	for k in range(len(word)):
-		wfile.write("<word timestamp=\"\" is_valid=\"1\">"+str(word[k])+"</word>"+"\n")
-	wfile.write("</line>"+"\n")
+    sentence = sentence_list[j].lstrip()
+    time = time_list[j]
+    wfile.write("<line timestamp=\""+str(time)+"\" speaker=\"Speaker_1\">"+"\n")
+    word = sentence.split(" ")
+    for k in range(len(word)):
+        wfile.write("<word timestamp=\"\" is_valid=\"1\">"+str(word[k])+"</word>"+"\n")
+    wfile.write("</line>"+"\n")
 wfile.write('</transcript>')

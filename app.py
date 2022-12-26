@@ -5,6 +5,7 @@ import shutil
 import subprocess
 from flask import Flask
 from celery import Celery
+from celery import uuid
 
 app = Flask(__name__)
 simple_app = Celery('simple_worker', broker='redis://localhost:6379/0', backend='redis://localhost:6379/0')
@@ -59,6 +60,7 @@ def call_method2():
     app.logger.info("Invoking Method ")
 
     if request.method=="POST":
+        task_id = uuid()
         source_lang=request.headers.get('source_language', 'english')
         destination_lang=request.headers.get('destination_language', 'english')
         file = request.files['file']
@@ -69,7 +71,7 @@ def call_method2():
         if(isExist==False):
             os.makedirs("./uploads")
             
-        folder_for_each_video="./uploads/"+filename_without_ext
+        folder_for_each_video="./uploads/"+task_id
         folder_for_each_video = folder_for_each_video.replace(' ','')
         folder_for_each_video = folder_for_each_video.replace('_','')
         isExist = os.path.exists(folder_for_each_video)
@@ -77,7 +79,8 @@ def call_method2():
             os.makedirs(folder_for_each_video)
         
         file.save(os.path.join(folder_for_each_video+"/", filename))
-        r = simple_app.send_task('tasks.getTranslation', kwargs={'folder_for_each_video':folder_for_each_video,'filename':filename,'source_lang':source_lang,'destination_lang':destination_lang})
+        
+        r = simple_app.send_task('tasks.getTranslation', kwargs={'folder_for_each_video':folder_for_each_video,'filename':filename,'source_lang':source_lang,'destination_lang':destination_lang},task_id=task_id)
         app.logger.info(r.backend)
         return r.id
     else:

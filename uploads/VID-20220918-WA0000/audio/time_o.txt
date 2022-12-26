@@ -1,0 +1,25 @@
+ warning: output format ambiguous (@t or @n missing)
+ Pretending to split file './uploads/VID-20220918-WA0000/audio/VID-20220918-WA0000.mp3' ...
+ info: file matches the plugin 'mp3 (libmad)'
+ info: found Xing or Info header. Switching to frame mode... 
+ info: MPEG 2 Layer 3 - 16000 Hz - Mono - FRAME MODE - Total time: 2m.18s
+ info: starting silence mode split
+ Silence split type: Auto mode (Th: -35.7 dB, Off: 0.80, Min: 0.40, Remove: YES(50.00-50.00), Min track: 0.00, Shots: 25, Min track join: 2.50)
+ Found silence log file 'mp3splt.log' ! Reading silence points from file to save time ;)
+ Total silence points found: 15. (Selected 16 tracks)
+   File "./uploads/VID-20220918-WA0000/audio/_00:00.00_00:20.95.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_00:20.95_00:25.21.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_00:25.21_00:32.15.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_00:32.15_00:47.62.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_00:47.62_00:52.59.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_00:52.59_01:04.47.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:04.47_01:10.55.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:10.55_01:18.72.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:18.72_01:22.11.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:22.11_01:29.44.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:29.44_01:33.73.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:33.73_01:52.94.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_01:52.94_02:04.55.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_02:04.55_02:08.69.mp3" created
+   File "./uploads/VID-20220918-WA0000/audio/_02:08.69_02:18.03.mp3" created
+ silence split ok
